@@ -14,11 +14,14 @@ import java.awt.Toolkit;
 
 public class JCalc extends JFrame implements ActionListener{
 	
-	ArrayList<JButton> digits = new ArrayList<JButton>(); 
-	ArrayList<JButton> functions = new ArrayList<JButton>(); 
-	String[] funcStr = {"-","+","x","/","=","clr","."};
-	JPanel wrapPanel, inputPanel; 
-	JTextField screen;
+	private ArrayList<JButton> digits = new ArrayList<JButton>(); 
+	private ArrayList<JButton> functions = new ArrayList<JButton>(); 
+	private String[] funcStr = {"-","+","x","/","=","clr","."};
+	private JPanel wrapPanel, inputPanel; 
+	private JTextField screen;
+	private Color blueGray = new Color(115, 147, 179);
+	private Color platinumGray = new Color(229, 228, 226);
+	
 	Image icon = Toolkit.getDefaultToolkit().getImage("icon2.png");
 	
 	JCalc(String title){
@@ -28,21 +31,33 @@ public class JCalc extends JFrame implements ActionListener{
 	public void setupFrame(String title) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null); 
-		this.getContentPane().setBackground(Color.black);
 		this.setSize(400,600);
 		this.setResizable(false);
 		this.setTitle(title);
 		this.setIconImage(icon); 
+		addPanels();
+		
 		this.setVisible(true); 
 	}
 	
 	public void addButtons() {
 		generateButtons(); 
+		addPanels();
 	}
 	
 	public void addPanels() {
 		wrapPanel = new JPanel(); 
-		setBounds(0,0, this.getWidth(), this.getHeight());
+		wrapPanel.setBounds(0,0, 400, 600);
+		wrapPanel.setBackground(this.blueGray);
+		wrapPanel.setLayout(null);
+		
+		inputPanel = new JPanel(); 
+		inputPanel.setBounds(0,(int)(wrapPanel.getHeight() * 0.2), 400, (int)(wrapPanel.getHeight() * 0.8));
+		inputPanel.setBackground(this.platinumGray);
+		inputPanel.setLayout(null);
+		
+		wrapPanel.add(inputPanel);
+		this.add(wrapPanel); 
 	}
 	
 	private void generateButtons() {
